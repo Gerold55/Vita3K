@@ -36,6 +36,9 @@ struct NetState {
     NetEpolls epolls;
     int state = -1;
     int resolver_id = 0;
+
+    // Constructor to ensure clean initialization
+    NetState() : inited(false), next_id(0), next_epoll_id(0), state(-1), resolver_id(0) {}
 };
 
 struct NetCtlState {
@@ -43,4 +46,10 @@ struct NetCtlState {
     std::array<SceNetCtlCallback, 8> callbacks;
     bool inited = false;
     std::mutex mutex;
+
+    // Constructor to ensure clean initialization
+    NetCtlState() : inited(false) {
+        adhocCallbacks.fill(nullptr);
+        callbacks.fill(nullptr);
+    }
 };

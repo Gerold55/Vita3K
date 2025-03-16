@@ -1,20 +1,20 @@
 #pragma once
-
+#include <unordered_map>
 #include <net/socket.h>
 
 struct EpollSocket {
     unsigned int events;
-    SceNetEpollData data;
+    void* data;
     abs_socket sock;
 };
 
-struct Epoll {
-    std::map<int, EpollSocket> eventEntries;
+class Epoll {
+private:
+    std::unordered_map<int, EpollSocket> eventEntries;
 
+public:
     int add(int id, abs_socket sock, SceNetEpollEvent *ev);
     int del(int id, abs_socket sock, SceNetEpollEvent *ev);
     int mod(int id, abs_socket sock, SceNetEpollEvent *ev);
-    int wait(SceNetEpollEvent *events, int maxevents, int timeout);
+    int wait(SceNetEpollEvent *events, int maxevents, int timeout_microseconds);
 };
-
-typedef std::shared_ptr<Epoll> EpollPtr;
