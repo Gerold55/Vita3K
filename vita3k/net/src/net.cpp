@@ -18,5 +18,15 @@
 #include <net/state.h>
 
 bool init(NetState &state) {
+    // Initializing network state for Vita3K Adhoc emulation
+    state.isConnected = false; // Not connected by default
+    state.connectionID = -1;   // No connection by default
+    state.localIP = "0.0.0.0"; // Placeholder IP
+    state.peerIP = "0.0.0.0";  // Placeholder for peer
+    state.bufferSize = 1024;   // Set default buffer size
+
+    // Additional initialization like configuring networking libraries or protocols
+    // Vita3K might use specific networking libraries or configurations here
+
     return true;
 }
